@@ -1,0 +1,44 @@
+.cart-popup {
+  position: fixed;
+  top: 80px; /* cách trên màn hình, dưới header */
+  left: 50%;
+  transform: translateX(-50%); /* căn giữa theo ngang */
+  background-color: #4caf50; /* màu xanh lá */
+  color: white;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+
+  animation: popupTop 1.5s ease forwards;
+}
+
+.cart-popup i {
+  font-size: 22px;
+  color: #fff;
+}
+
+@keyframes popupTop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px) scale(0.9);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px) scale(0.9);
+  }
+}

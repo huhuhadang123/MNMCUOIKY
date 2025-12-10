@@ -1,0 +1,176 @@
+/* -------------------------------
+   🟦 KHUNG CHATBOT
+--------------------------------*/
+.chatbot-container {
+  position: fixed;
+  bottom: 90px;
+  right: 30px;
+  width: 350px;
+  height: 480px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  animation: fadeIn 0.3s ease-in-out;
+  border: 1px solid #e6e6e6;
+  z-index: 9999;
+}
+
+/* Animation mở chat */
+@keyframes fadeIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* -------------------------------
+     🟪 HEADER CHATBOT
+  --------------------------------*/
+.chatbot-header {
+  background: linear-gradient(135deg, #2c82ff, #6aa8ff);
+  color: white;
+  padding: 12px 16px;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#closeChat {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+#closeChat:hover {
+  transform: scale(1.2);
+}
+
+/* -------------------------------
+     🟩 NỘI DUNG CHAT
+  --------------------------------*/
+.chatbot-body {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  background: #f7faff;
+}
+
+.chatbot-body::-webkit-scrollbar {
+  width: 6px;
+}
+.chatbot-body::-webkit-scrollbar-thumb {
+  background: #c6c6c6;
+  border-radius: 999px;
+}
+
+/* Tin nhắn */
+.msg {
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  max-width: 80%;
+  line-height: 1.4;
+  font-size: 15px;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+/* Tin người dùng */
+.user-msg {
+  background: #d8e6ff;
+  align-self: flex-end;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+
+/* Tin AI */
+.ai-msg {
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  align-self: flex-start;
+  margin-right: auto;
+  border-bottom-left-radius: 4px;
+}
+
+/* -------------------------------
+     🟧 INPUT GỬI TIN
+  --------------------------------*/
+.chatbot-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #e5e5e5;
+  background: #fff;
+}
+
+#chatInput {
+  flex: 1;
+  border: none;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #f1f4f9;
+  outline: none;
+}
+
+#sendChat {
+  padding: 0 18px;
+  background: #2c82ff;
+  border: none;
+  margin-left: 8px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#sendChat:hover {
+  background: #136af5;
+}
+
+/* -------------------------------
+     🟦 NÚT MỞ CHAT
+  --------------------------------*/
+.chatbot-open {
+  position: fixed;
+  bottom: 25px;
+  right: 30px;
+  width: 55px;
+  height: 55px;
+  border: none;
+  border-radius: 50%;
+  background: #2c82ff;
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  animation: pulse 1.8s infinite ease-in-out;
+  z-index: 9999;
+}
+
+/* Hiệu ứng nhịp tim */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.chatbot-open:hover {
+  background: #1255c5;
+  transform: scale(1.15);
+}

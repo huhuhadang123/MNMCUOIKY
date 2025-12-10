@@ -1,0 +1,149 @@
+/* Container nền */
+.edit-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+  background: linear-gradient(135deg, #e8eef6, #f7f9fc);
+  min-height: 100vh;
+}
+
+/* Form card kiểu glass */
+.edit-card {
+  width: 100%;
+  max-width: 580px;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 35px;
+  border-radius: 22px;
+
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(200, 200, 200, 0.4);
+
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+
+  animation: fadeUp 0.4s ease;
+}
+
+/* Tiêu đề */
+.form-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 30px;
+
+  background: linear-gradient(90deg, #1d3557, #457b9d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Form */
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+/* Input hiện đại */
+.input-field {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #d0d7e2;
+  background: #ffffffb8;
+  outline: none;
+
+  font-size: 15px;
+
+  transition: 0.25s;
+}
+
+.input-field:hover {
+  border-color: #8cb4ff;
+}
+
+.input-field:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 8px rgba(74, 144, 226, 0.45);
+  background: #fff;
+}
+
+/* Button nhóm */
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* Button chính (gradient) */
+.btn-primary {
+  flex: 1;
+  margin-right: 10px;
+
+  background: linear-gradient(135deg, #4a90e2, #6ab0ff);
+  color: white;
+
+  border: none;
+  padding: 14px 18px;
+  border-radius: 14px;
+
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+
+  box-shadow: 0px 4px 12px rgba(74, 144, 226, 0.4);
+  transition: 0.25s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 16px rgba(74, 144, 226, 0.5);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+/* Button phụ */
+.btn-secondary {
+  flex: 1;
+  margin-left: 10px;
+
+  background: #e6e6e6;
+  color: #333;
+  border: none;
+
+  padding: 14px 18px;
+  border-radius: 14px;
+
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+
+  transition: 0.25s;
+}
+
+.btn-secondary:hover {
+  background: #d5d5d5;
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
+}
+
+/* Animation xuất hiện */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,285 @@
+/* ========== CẬP NHẬT CSS SÁT VỚI HÌNH ẢNH MẪU ========== */
+
+/* Container chính của trang (Nền tối nhẹ) */
+.cart-page {
+  width: 90%;
+  max-width: 1100px;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+  /* Giả định có nền tối nhẹ ở ngoài */
+}
+
+/* Tiêu đề giỏ hàng */
+.cart-header {
+  margin-bottom: 25px;
+}
+
+.cart-title {
+  font-size: 28px;
+  font-weight: 500;
+  color: #333;
+  text-align: center;
+  padding: 15px;
+}
+
+/* Giỏ hàng trống */
+.empty-cart {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+  padding: 50px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Container cho Bảng Giỏ hàng (Nền trắng, nổi bật) */
+.cart-table-container {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 0 15px 15px 15px; /* Thêm padding cho khung chính */
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Header của Bảng (Các cột) - Sử dụng màu nền sáng nhẹ */
+.cart-table thead {
+  background-color: #f7f7f7; /* Màu nền sáng nhẹ như ảnh mẫu */
+  color: #555;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.cart-table th {
+  padding: 15px 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Điều chỉnh độ rộng và căn lề các cột */
+.cart-table th:nth-child(1) {
+  width: 45%;
+  text-align: left;
+  padding-left: 30px;
+} /* Sản phẩm */
+.cart-table th:nth-child(2) {
+  width: 15%;
+} /* Đơn giá */
+.cart-table th:nth-child(3) {
+  width: 15%;
+} /* Số lượng */
+.cart-table th:nth-child(4) {
+  width: 18%;
+} /* Thành tiền */
+.cart-table th:nth-child(5) {
+  width: 7%;
+} /* Xóa */
+
+/* Hàng sản phẩm riêng lẻ */
+.cart-table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+.cart-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.cart-table td {
+  padding: 15px 10px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 15px;
+  color: #333;
+}
+
+/* Cột Sản phẩm (Hình ảnh và Tên) */
+.product-col {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  padding: 15px 30px;
+}
+
+.item-img {
+  width: 60px; /* Nhỏ hơn ảnh mẫu */
+  height: 60px;
+  object-fit: contain;
+  margin-right: 15px;
+  border: 1px solid #f0f0f0; /* Viền siêu nhẹ */
+  border-radius: 5px;
+}
+
+.item-name {
+  font-weight: 500;
+  color: #333;
+}
+
+/* Cột Đơn giá */
+.price-col {
+  color: #333;
+}
+
+/* Cột Số lượng (Control) - Giống ảnh mẫu */
+.qty-control {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.qty-btn {
+  background: white;
+  border: none;
+  padding: 5px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+  transition: background-color 0.1s;
+}
+
+.qty-btn:hover {
+  background: #f0f0f0;
+}
+
+.qty-number {
+  padding: 5px 10px;
+  font-weight: 400;
+  color: #333;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  min-width: 25px;
+}
+
+/* Cột Thành tiền */
+.total-col {
+  color: #d90429; /* Màu đỏ nổi bật giống ảnh mẫu */
+  font-weight: 600;
+}
+
+/* Cột Xóa (Chỉ có icon) */
+.remove-col .remove-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px; /* Kích thước tương đương icon thùng rác */
+  color: #d90429;
+  padding: 5px;
+}
+
+/* ========== PHẦN FOOTER (TỔNG CỘNG VÀ NÚT) ========== */
+.cart-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; /* Căn chỉnh nút thanh toán xuống dưới cùng */
+  margin-top: 30px;
+}
+
+/* Nút Tiếp tục mua hàng */
+.continue-shopping-btn {
+  padding: 12px 25px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #555;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.continue-shopping-btn:hover {
+  background-color: #f0f0f0;
+}
+
+/* Khu vực Tổng cộng và Thanh toán */
+.cart-summary {
+  text-align: right;
+}
+
+.total-text {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.final-total {
+  font-size: 22px;
+  font-weight: 700;
+  color: #d90429; /* Màu đỏ cho tổng tiền */
+  margin-left: 10px;
+}
+
+/* Nút Thanh toán ngay - Màu xanh lá đậm như ảnh mẫu */
+.pay-btn {
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  background: #4caf50; /* Màu xanh lá cây đậm */
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  box-shadow: 0 4px #388e3c; /* Tạo hiệu ứng 3D nhẹ */
+  margin-top: 15px;
+}
+
+.pay-btn:hover {
+  background: #388e3c;
+  box-shadow: 0 2px #1b5e20;
+  transform: translateY(2px);
+}
+
+/*daykeoxuonggiohangsanpham*/
+/* Container cho Bảng Giỏ hàng (Nền trắng, nổi bật) */
+.cart-table-container {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 0 15px 15px 15px;
+
+  /* === THAY ĐỔI QUAN TRỌNG: THÊM SCROLLBAR === */
+  max-height: 450px; /* Đặt chiều cao tối đa cho vùng bảng (VD: 450px) */
+  overflow-y: auto; /* Kích hoạt thanh cuộn dọc khi nội dung vượt quá chiều cao */
+}
+
+/* Cần đảm bảo rằng header của bảng vẫn hiển thị đúng, nên không cần thay đổi thêm */
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Header của Bảng (Các cột) */
+.cart-table thead {
+  background-color: #f7f7f7;
+  color: #555;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+
+  /* === THAY ĐỔI QUAN TRỌNG: LÀM CỐ ĐỊNH HEADER === */
+  /* Tuy nhiên, việc làm cố định header trong một vùng cuộn riêng biệt phức tạp.
+       Để đơn giản, chúng ta chỉ cần cuộn nội dung. Nếu muốn cố định header,
+       phải dùng CSS phức tạp hơn hoặc thay đổi cấu trúc HTML.
+       Với giải pháp đơn giản này, Header sẽ cuộn theo nội dung. */
+  position: sticky; /* Thử cố định header */
+  top: 0; /* Cố định ở vị trí trên cùng của container */
+  z-index: 10; /* Đảm bảo nó nằm trên các hàng khác */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Thêm bóng để phân biệt khi cuộn */
+}
+
+/* ... (Phần CSS còn lại giữ nguyên) ... */
+.qty-input {
+  width: 50px;
+  text-align: center;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 5px;
+}

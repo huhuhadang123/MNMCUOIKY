@@ -1,0 +1,192 @@
+/* ===== ADMIN CONTAINER ===== */
+.admin-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px 0;
+  background: linear-gradient(135deg, #eef2f3 0%, #dfe9f3 100%);
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== CARD WRAPPER ===== */
+.admin-card {
+  width: 90%;
+  max-width: 1300px;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  animation: fadeIn 0.4s ease;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== HEADER ===== */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.admin-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111;
+}
+
+.admin-subtitle {
+  color: #666;
+  margin-top: 5px;
+}
+
+/* Button thêm */
+.btn-add {
+  padding: 12px 22px;
+  font-size: 16px;
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+}
+
+.btn-add:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(39, 174, 96, 0.5);
+}
+
+/* ===== TABLE ===== */
+.table-wrap {
+  overflow-x: auto;
+}
+
+.prod-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+.prod-table thead th {
+  background: #f5f7fa;
+  padding: 15px;
+  color: #444;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.prod-table tbody tr {
+  background: #ffffff;
+  transition: 0.25s ease;
+  border-radius: 14px;
+}
+
+.prod-table tbody tr:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.prod-table td {
+  padding: 16px;
+  text-align: center;
+  color: #333;
+  font-size: 15px;
+}
+
+/* ===== IMAGE ===== */
+.product-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== PRICE, NAME, RATING ===== */
+.prod-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: #222;
+}
+
+.prod-price {
+  font-weight: 700;
+  color: #2ecc71;
+}
+
+.prod-rating {
+  color: #f39c12;
+  font-weight: 600;
+}
+
+.rating-count {
+  color: #888;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-edit,
+.btn-delete {
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  font-weight: 500;
+  transition: 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Edit button */
+.btn-edit {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4);
+}
+
+.btn-edit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(41, 128, 185, 0.5);
+}
+
+/* Delete button */
+.btn-delete {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+}
+
+.btn-delete:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(192, 57, 43, 0.5);
+}
+
+/* ===== EMPTY STATE ===== */
+.empty {
+  text-align: center;
+  padding: 30px;
+  font-size: 20px;
+  color: #999;
+}
