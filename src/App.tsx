@@ -32,6 +32,7 @@ import Lienhe from "./Lienhe";
 // @ts-ignore
 import DongHoNu from "./DongHoNu";
 // @ts-ignore
+import Checkout from "./Checkout";
 // @ts-ignore
 import AboutUs from "./AboutUs";
 // Import Routing
@@ -54,7 +55,7 @@ const App = () => {
           <Route path="Trang1" element={<Trang1 />} />
           <Route path="GioHang" element={<GioHang />} />
           <Route path="Lienhe" element={<Lienhe />} />
-          <Route path="DongHoNu" element={<DongHoNu />} />
+          <Route path="Checkout" element={<Checkout />} />
           <Route path="AboutUs" element={<AboutUs />} />
           <Route
             path="ListProducts_SP_Admin"

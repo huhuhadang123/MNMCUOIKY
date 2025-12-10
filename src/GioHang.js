@@ -165,7 +165,9 @@ export default function GioHang() {
                 Tổng cộng:{" "}
                 <span className="final-total">{formatPrice(total)}</span>
               </p>
-              <button className="pay-btn">Thanh toán ngay</button>
+              <button className="pay-btn" onClick={() => navigate("/Checkout")}>
+                Thanh toán ngay
+              </button>
             </div>
           </div>
         </>
