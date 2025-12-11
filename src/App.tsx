@@ -35,6 +35,8 @@ import DongHoNu from "./DongHoNu";
 import Checkout from "./Checkout";
 // @ts-ignore
 import AboutUs from "./AboutUs";
+// @ts-ignore
+import OrderPage from "./OrderPage";
 // Import Routing
 // @ts-ignore
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -56,6 +58,7 @@ const App = () => {
           <Route path="GioHang" element={<GioHang />} />
           <Route path="Lienhe" element={<Lienhe />} />
           <Route path="Checkout" element={<Checkout />} />
+          <Route path="Order" element={<OrderPage />} />
           <Route path="AboutUs" element={<AboutUs />} />
           <Route
             path="ListProducts_SP_Admin"

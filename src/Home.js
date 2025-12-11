@@ -24,6 +24,12 @@ const Home = () => {
 
   const navigate = useNavigate();
 
+  // --- Hàm quy đổi VND sang USD ---
+  const formatUSD = (vnd) => {
+    const rate = 25000; // tỷ giá 1 USD = 25,000 VND
+    return (vnd / rate).toFixed(2);
+  };
+
   // Auto slide
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,23 +54,25 @@ const Home = () => {
   };
 
   const products = [
-    { id: 1, name: "Đồng Hồ Huboler", price: 6450000, image: watchImage1 },
+    { id: 1, name: "Đồng Hồ Huboler", price: 244.71, image: watchImage1 },
+
+    // Giá gốc VNĐ → tự động đổi USD
     {
       id: 2,
       name: "Koi K001.403.642.05.01.01",
-      price: 2130000,
+      price: formatUSD(2130000), // đổi sang USD
       image: watchImage2,
     },
     {
       id: 3,
       name: "Citizen Eco-Drive BM7620-83L",
-      price: 8385000,
+      price: formatUSD(8385000),
       image: watchImage3,
     },
     {
       id: 4,
       name: "Casio Edifice ECB-S10DB",
-      price: 7612000,
+      price: formatUSD(7612000),
       image: watchImage4,
     },
   ];
@@ -130,9 +138,10 @@ const Home = () => {
             </div>
 
             <h3>{item.name}</h3>
-            <p className="price">{item.price.toLocaleString()}₫</p>
 
-            {/* Nút được làm đẹp hoàn toàn */}
+            {/* Giá USD */}
+            <p className="price">${item.price}</p>
+
             <div className="product-buttons">
               <button
                 className="btn-buy-modern"

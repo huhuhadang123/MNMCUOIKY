@@ -200,7 +200,6 @@ const Layout = () => {
         <Outlet />
       </div>
 
-      {/* FOOTER */}
       <footer className="footer-clothing">
         <div className="footer-container">
           <div className="footer-section info">
@@ -215,8 +214,7 @@ const Layout = () => {
             <h3>Liên hệ</h3>
             <ul>
               <li>
-                <i className="fas fa-map-marker-alt"></i> số 33 đường Vĩnh Viễn,
-                Quận 10, TP.HCM
+                <i className="fas fa-map-marker-alt"></i> 33 Vĩnh Viễn, Quận 10
               </li>
               <li>
                 <i className="fas fa-phone"></i> 0901 234 567
@@ -237,7 +235,7 @@ const Layout = () => {
                 <a href="/trang1">Sản Phẩm</a>
               </li>
               <li>
-                <a href="/Listsanpham">Danh Sách Sản Phẩm</a>
+                <a href="/Lienhe">Liên Hệ</a>
               </li>
               <li>
                 <a href="/AboutUs">Giới Thiệu</a>
@@ -245,22 +243,23 @@ const Layout = () => {
             </ul>
           </div>
 
-          <div className="footer-section categories">
-            <h3>Danh mục</h3>
-            <ul>
-              <li>
-                <a href="/dongho-nam">Đồng hồ Nam</a>
-              </li>
-              <li>
-                <a href="/dongho-nu">Đồng hồ Nữ</a>
-              </li>
-              <li>
-                <a href="#">Phụ kiện</a>
-              </li>
-              <li>
-                <a href="#">Thương hiệu</a>
-              </li>
-            </ul>
+          {/* Removed the "Danh mục" section */}
+
+          {/* New Map Section */}
+          <div className="footer-section map">
+            <h3>Vị trí cửa hàng</h3>
+            <div className="map-container">
+              {/* Google Map Embed */}
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7974.527270606803!2d106.6762668!3d10.7806978!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528eaa2e7e5a3%3A0x26dfd6bc3422a738!2zMzMgVmluaCDEkOG7nW5nIFRocmFuaCBXaWVuLCBRdWFuIDEwLCBUUC4gS2jDoW0sIEhP!5e0!3m2!1sen!2s!4v1673648203707!5m2!1sen!2s"
+                width="100%"
+                height="200"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
           </div>
         </div>
 

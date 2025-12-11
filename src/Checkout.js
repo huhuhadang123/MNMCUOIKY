@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate từ react-router-dom
 import "./assets/css/ThanhToan.css";
 
 export default function Checkout() {
@@ -12,38 +13,58 @@ export default function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [bank, setBank] = useState("");
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const navigate = useNavigate(); // Hook để điều hướng
+
+  // 🔥 Convert giá nếu còn VNĐ
+  const convertToUSD = (price) => {
+    const num = Number(price) || 0;
+    if (num > 20000) return +(num / 25000).toFixed(2); // VNĐ → USD
+    return +num; // đã là USD
+  };
+
+  // 🔥 Format USD
+  const formatUSD = (price) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(price);
+  };
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCart(savedCart);
+
+    const fixedCart = savedCart.map((item) => ({
+      ...item,
+      price: convertToUSD(item.price),
+      quantity: Number(item.quantity) || 1,
+      name: item.name || item.title || "Sản phẩm",
+    }));
+
+    setCart(fixedCart);
   }, []);
 
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
   const handleCheckout = () => {
-    // KIỂM TRA THIẾU DỮ LIỆU
-    if (!customerName.trim()) {
-      alert("Vui lòng nhập tên khách hàng!");
-      return;
-    }
-    if (!address.trim()) {
-      alert("Vui lòng nhập địa chỉ giao hàng!");
-      return;
-    }
-    if (!email.trim()) {
-      alert("Vui lòng nhập email!");
-      return;
-    }
-    if (!paymentMethod) {
-      alert("Vui lòng chọn phương thức thanh toán!");
-      return;
-    }
-    if (!bank) {
-      alert("Vui lòng chọn ngân hàng!");
-      return;
-    }
+    if (!customerName.trim()) return alert("Vui lòng nhập tên khách hàng!");
+    if (!address.trim()) return alert("Vui lòng nhập địa chỉ giao hàng!");
+    if (!email.trim()) return alert("Vui lòng nhập email!");
+    if (!paymentMethod) return alert("Vui lòng chọn phương thức thanh toán!");
+    if (!bank) return alert("Vui lòng chọn ngân hàng!");
 
     setOrderPlaced(true);
-    alert("Thanh toán thành công!");
+    // Chuyển hướng đến trang đơn hàng và truyền thông tin đơn hàng qua state
+    navigate("/order", {
+      state: {
+        cart,
+        customerName,
+        address,
+        email,
+        paymentMethod,
+        bank,
+        total,
+      },
+    });
   };
 
   return (
@@ -61,7 +82,7 @@ export default function Checkout() {
         <label>Địa chỉ giao hàng</label>
         <input
           type="text"
-          placeholder="33 vĩnh viễn"
+          placeholder="33 Vĩnh Viễn"
           onChange={(e) => setAddress(e.target.value)}
         />
 
@@ -78,7 +99,7 @@ export default function Checkout() {
             <input
               type="radio"
               name="pay"
-              value="Thẻ tín dụng"
+              value="Credit Card"
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
             Thẻ tín dụng
@@ -103,68 +124,15 @@ export default function Checkout() {
           <option value="Techcombank">Techcombank</option>
         </select>
 
+        {/* 🔥 Tổng tiền USD */}
         <div className="checkout-total">
-          Tổng tiền: {total.toLocaleString()} VND
+          Tổng tiền: <strong>{formatUSD(total)}</strong>
         </div>
 
         <button className="checkout-btn" onClick={handleCheckout}>
           Thanh Toán
         </button>
       </div>
-
-      {/* Bảng thông tin đơn hàng */}
-      {orderPlaced && (
-        <div className="order-wrapper">
-          <div className="order-table-container">
-            <h3 className="order-title">🎉 Đơn Hàng Của Bạn</h3>
-
-            {/* Thông tin khách hàng */}
-            <div className="customer-info">
-              <p>
-                <strong>Tên khách hàng:</strong> {customerName}
-              </p>
-              <p>
-                <strong>Địa chỉ giao hàng:</strong> {address}
-              </p>
-              <p>
-                <strong>Email:</strong> {email}
-              </p>
-              <p>
-                <strong>Phương thức thanh toán:</strong> {paymentMethod}
-              </p>
-              <p>
-                <strong>Ngân hàng:</strong> {bank}
-              </p>
-            </div>
-
-            <table className="order-table">
-              <thead>
-                <tr>
-                  <th>Sản phẩm</th>
-                  <th>Số lượng</th>
-                  <th>Giá</th>
-                  <th>Thành tiền</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {cart.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.name}</td>
-                    <td>{item.quantity}</td>
-                    <td>{item.price.toLocaleString()} VND</td>
-                    <td>{(item.price * item.quantity).toLocaleString()} VND</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <h3 className="order-total">
-              Tổng cộng: {total.toLocaleString()} VND
-            </h3>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

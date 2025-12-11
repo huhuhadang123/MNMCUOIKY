@@ -6,22 +6,36 @@ export default function GioHang() {
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
 
+  // 🔥 Chuyển giá từ VNĐ → USD nếu giá VNĐ còn sót trong localStorage
+  const convertToUSD = (price) => {
+    const num = Number(price) || 0;
+
+    // Nếu giá lớn hơn 20,000 thì chắc chắn là VNĐ
+    if (num > 20000) {
+      return +(num / 25000).toFixed(2); // đổi sang USD
+    }
+
+    return +num; // đã là USD
+  };
+
+  // 🔥 Load giỏ hàng + convert giá sang USD + ép dữ liệu về đúng dạng
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("cart")) || [];
-    setCart(
-      saved.map((item) => ({
-        ...item,
-        price: item.price || 0,
-        quantity: item.quantity || 1,
-      }))
-    );
+
+    const fixedCart = saved.map((item) => ({
+      ...item,
+      price: convertToUSD(item.price), // luôn là USD sau khi convert
+      quantity: Number(item.quantity) || 1,
+      name: item.name || item.title || "Sản phẩm", // tránh lỗi thiếu name
+    }));
+
+    setCart(fixedCart);
   }, []);
 
+  // Lưu lại giỏ hàng + cập nhật giao diện
   const updateCart = (newCart) => {
     setCart(newCart);
     localStorage.setItem("cart", JSON.stringify(newCart));
-
-    // BẮT BUỘC có để Layout cập nhật số lượng
     window.dispatchEvent(new Event("cartUpdated"));
   };
 
@@ -43,11 +57,10 @@ export default function GioHang() {
     );
   };
 
-  // 🔥 Cho phép nhập số lượng tùy ý
   const changeQty = (id, value) => {
-    const quantity = Math.max(1, Number(value) || 1);
+    const q = Math.max(1, Number(value) || 1);
     updateCart(
-      cart.map((item) => (item.id === id ? { ...item, quantity } : item))
+      cart.map((item) => (item.id === id ? { ...item, quantity: q } : item))
     );
   };
 
@@ -55,14 +68,15 @@ export default function GioHang() {
     updateCart(cart.filter((item) => item.id !== id));
   };
 
+  // 🔥 Format theo USD chuẩn quốc tế
   const formatPrice = (price) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
-      minimumFractionDigits: 2,
     }).format(price);
   };
 
+  // 🔥 Tính tổng tiền USD
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleContinueShopping = () => {
@@ -84,7 +98,7 @@ export default function GioHang() {
               <thead>
                 <tr>
                   <th>Sản phẩm</th>
-                  <th>Đơn giá</th>
+                  <th>Đơn giá (USD)</th>
                   <th>Số lượng</th>
                   <th>Thành tiền</th>
                   <th>Xóa</th>
@@ -97,17 +111,16 @@ export default function GioHang() {
                     <td className="product-col">
                       <img
                         src={item.image}
-                        alt={item.title}
+                        alt={item.name}
                         className="item-img"
                       />
-                      <span className="item-name">{item.title}</span>
+                      <span className="item-name">{item.name}</span>
                     </td>
 
                     <td className="price-col">{formatPrice(item.price)}</td>
 
                     <td className="qty-col">
                       <div className="qty-control">
-                        {/* NÚT GIẢM */}
                         <button
                           className="qty-btn minus-btn"
                           onClick={() => decreaseQty(item.id)}
@@ -115,7 +128,6 @@ export default function GioHang() {
                           -
                         </button>
 
-                        {/* 🔥 Ô INPUT NHẬP SỐ LƯỢNG */}
                         <input
                           type="number"
                           className="qty-input"
@@ -124,7 +136,6 @@ export default function GioHang() {
                           onChange={(e) => changeQty(item.id, e.target.value)}
                         />
 
-                        {/* NÚT TĂNG */}
                         <button
                           className="qty-btn plus-btn"
                           onClick={() => increaseQty(item.id)}
