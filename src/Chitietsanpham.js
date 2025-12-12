@@ -1,71 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { supabase } from "./supabaseClient"; // Import Supabase client
+import { products } from "./data/product"; // lấy đúng 4 sản phẩm nổi bật
 import "./assets/css/Chitietsanpham.css";
 
 export default function Chitietsanpham() {
-  const { id } = useParams(); // Lấy id từ URL
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [product, setProduct] = useState(null); // Dữ liệu sản phẩm
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("product1") // Đảm bảo bảng sản phẩm là đúng
-          .select("id, title, price, image, description, category") // Các trường cần thiết
-          .eq("id", id) // Lọc theo id sản phẩm
-          .single(); // Chỉ lấy 1 sản phẩm
+  const product = products.find((p) => p.id === Number(id));
 
-        if (error) throw error;
-        setProduct(data); // Cập nhật sản phẩm
-      } catch (err) {
-        setError("Không thể tải sản phẩm.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const addToCart = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const exist = cart.find((item) => item.id === product.id);
 
-    fetchProduct();
-  }, [id]); // Gọi lại mỗi khi id thay đổi
+    if (exist) exist.quantity += 1;
+    else cart.push({ ...product, quantity: 1 });
 
-  // Nếu đang tải dữ liệu
-  if (loading) return <p>Đang tải thông tin sản phẩm...</p>;
+    localStorage.setItem("cart", JSON.stringify(cart));
 
-  // Nếu có lỗi
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+    // 🔥 THÊM DÒNG NÀY ĐỂ LAYOUT NHẬN TÍN HIỆU UPDATE GIỎ HÀNG
+    window.dispatchEvent(new Event("cartUpdated"));
 
-  // Nếu không tìm thấy sản phẩm
+    alert("🛒 Đã thêm vào giỏ hàng!");
+  };
+
   if (!product) {
     return (
       <div className="product-not-found">
         <h3>Không tìm thấy sản phẩm!</h3>
         <button className="back-button" onClick={() => navigate("/")}>
-          Quay lại Trang 1
+          Quay lại Trang chủ
         </button>
       </div>
     );
   }
-
-  // Hàm thêm vào giỏ hàng
-  const addToCart = () => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existing = cart.find((item) => item.id === product.id);
-
-    if (existing) {
-      existing.quantity += 1;
-    } else {
-      cart.push({
-        ...product,
-        quantity: 1,
-      });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("🛒 Đã thêm vào giỏ hàng!");
-  };
 
   return (
     <div className="product-detail-container">
@@ -93,7 +61,6 @@ export default function Chitietsanpham() {
 
           <p className="product-description">{product.description}</p>
 
-          {/* 🛒 Nút thêm vào giỏ hàng */}
           <button className="add-cart-btn" onClick={addToCart}>
             🛒 Thêm vào giỏ hàng
           </button>

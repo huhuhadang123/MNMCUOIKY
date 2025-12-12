@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./assets/css/OrderPage.css";
 
@@ -7,18 +7,22 @@ export default function OrderPage() {
   const navigate = useNavigate();
   const [orderId, setOrderId] = useState(null);
 
+  // 🔥 CHẶN useEffect CHẠY 2 LẦN TRONG REACT 18
+  const hasSaved = useRef(false);
+
   const { cart, customerName, address, email, paymentMethod, bank, total } =
     location.state || {};
 
-  // ❗ Ngăn lỗi nếu không có dữ liệu đơn hàng
   useEffect(() => {
     if (!cart) return;
 
-    // Tạo mã đơn hàng
+    // 🛑 Nếu đã lưu rồi thì không cho lưu lần 2
+    if (hasSaved.current) return;
+    hasSaved.current = true;
+
     const newOrderId = "DH" + Date.now();
     setOrderId(newOrderId);
 
-    // --- LƯU ĐƠN HÀNG ---
     const orderData = {
       id: newOrderId,
       customerName,
@@ -33,17 +37,12 @@ export default function OrderPage() {
 
     const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
     savedOrders.push(orderData);
-
     localStorage.setItem("orders", JSON.stringify(savedOrders));
 
-    // ------------------------------------------------
-    // 🔥 XÓA GIỎ HÀNG NGAY SAU KHI THANH TOÁN
-    // ------------------------------------------------
     localStorage.removeItem("cart");
-    window.dispatchEvent(new Event("cartUpdated")); // cập nhật icon giỏ hàng
+    window.dispatchEvent(new Event("cartUpdated"));
   }, []);
 
-  // 🔥 Xóa đơn hàng
   const handleDeleteOrder = () => {
     const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
     const updatedOrders = savedOrders.filter((o) => o.id !== orderId);
@@ -51,7 +50,7 @@ export default function OrderPage() {
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
 
     alert("Đơn hàng đã được xóa!");
-    navigate("/"); // quay về trang chủ
+    navigate("/");
   };
 
   if (!cart) {
@@ -109,7 +108,6 @@ export default function OrderPage() {
         <h3>Tổng cộng: ${total}</h3>
       </div>
 
-      {/* 🔥 Nút xoá đơn hàng */}
       <button className="delete-order-btn" onClick={handleDeleteOrder}>
         ❌ Xóa đơn hàng
       </button>

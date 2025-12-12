@@ -8,11 +8,8 @@ import banner1 from "./assets/images/dhnam.avif";
 import banner2 from "./assets/images/STUHRLING.jpg";
 import banner3 from "./assets/images/dhcaocap.jpg";
 
-// Product images
-import watchImage1 from "./assets/images/Huboler.jpg";
-import watchImage2 from "./assets/images/KOI.avif";
-import watchImage3 from "./assets/images/CITIZEN.avif";
-import watchImage4 from "./assets/images/CASIO.avif";
+// Import 4 sản phẩm nổi bật từ file riêng
+import { products } from "./data/product";
 
 import "./assets/css/AddToCartPopup.css";
 
@@ -23,12 +20,6 @@ const Home = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   const navigate = useNavigate();
-
-  // --- Hàm quy đổi VND sang USD ---
-  const formatUSD = (vnd) => {
-    const rate = 25000; // tỷ giá 1 USD = 25,000 VND
-    return (vnd / rate).toFixed(2);
-  };
 
   // Auto slide
   useEffect(() => {
@@ -53,30 +44,6 @@ const Home = () => {
     setIndex(i);
   };
 
-  const products = [
-    { id: 1, name: "Đồng Hồ Huboler", price: 244.71, image: watchImage1 },
-
-    // Giá gốc VNĐ → tự động đổi USD
-    {
-      id: 2,
-      name: "Koi K001.403.642.05.01.01",
-      price: formatUSD(2130000), // đổi sang USD
-      image: watchImage2,
-    },
-    {
-      id: 3,
-      name: "Citizen Eco-Drive BM7620-83L",
-      price: formatUSD(8385000),
-      image: watchImage3,
-    },
-    {
-      id: 4,
-      name: "Casio Edifice ECB-S10DB",
-      price: formatUSD(7612000),
-      image: watchImage4,
-    },
-  ];
-
   const addToCart = (product) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const exist = cart.find((item) => item.id === product.id);
@@ -85,6 +52,9 @@ const Home = () => {
     else cart.push({ ...product, quantity: 1 });
 
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    // 🔥 Gọi event để Layout cập nhật icon giỏ hàng NGAY LẬP TỨC
+    window.dispatchEvent(new Event("cartUpdated"));
 
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 1500);
@@ -134,12 +104,11 @@ const Home = () => {
         {products.map((item) => (
           <div className="product-card" key={item.id}>
             <div className="product-image-wrapper">
-              <img src={item.image} alt={item.name} />
+              <img src={item.image} alt={item.title} />
             </div>
 
-            <h3>{item.name}</h3>
+            <h3>{item.title}</h3>
 
-            {/* Giá USD */}
             <p className="price">${item.price}</p>
 
             <div className="product-buttons">
@@ -168,6 +137,7 @@ const Home = () => {
         </div>
       )}
 
+      {/* ListProduct (loading Supabase) */}
       <ListProduct />
     </div>
   );
