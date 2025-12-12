@@ -118,6 +118,11 @@ const Layout = () => {
                     <span className="cart-count">{cartCount}</span>
                   </a>
                 </li>
+                <li>
+                  <a className="nav-link order-link" href="/orders">
+                    <i className="fa-solid fa-box"></i> Đơn hàng
+                  </a>
+                </li>
 
                 {user?.role === "admin" && (
                   <li>

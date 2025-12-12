@@ -37,6 +37,9 @@ import Checkout from "./Checkout";
 import AboutUs from "./AboutUs";
 // @ts-ignore
 import OrderPage from "./OrderPage";
+// @ts-ignore
+import OrderList from "./OrderList";
+
 // Import Routing
 // @ts-ignore
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -59,6 +62,7 @@ const App = () => {
           <Route path="Lienhe" element={<Lienhe />} />
           <Route path="Checkout" element={<Checkout />} />
           <Route path="Order" element={<OrderPage />} />
+          <Route path="/orders" element={<OrderList />} />
           <Route path="AboutUs" element={<AboutUs />} />
           <Route
             path="ListProducts_SP_Admin"
