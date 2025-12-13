@@ -10,6 +10,18 @@ export default function OrderList() {
     setOrders(savedOrders);
   }, []);
 
+  // ✅ FORMAT TIỀN USD GỌN – KHÔNG NHIỀU SỐ 0
+  const formatCurrency = (value) => {
+    if (value === undefined || value === null || isNaN(value)) {
+      return "$0.00";
+    }
+
+    return Number(value).toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
+  };
+
   // ❗ Xóa 1 đơn hàng
   const handleDelete = (id) => {
     const confirmDelete = window.confirm("Bạn có chắc muốn xóa đơn hàng này?");
@@ -17,7 +29,7 @@ export default function OrderList() {
 
     const updatedOrders = orders.filter((o) => o.id !== id);
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
-    setOrders(updatedOrders); // 🔥 reload UI không cần F5
+    setOrders(updatedOrders); // reload UI
   };
 
   // ❗ Xóa tất cả đơn hàng
@@ -26,7 +38,7 @@ export default function OrderList() {
     if (!confirmDelete) return;
 
     localStorage.removeItem("orders");
-    setOrders([]); // 🔥 reload UI
+    setOrders([]);
   };
 
   return (
@@ -87,16 +99,18 @@ export default function OrderList() {
                   <tr key={index}>
                     <td>{item.name}</td>
                     <td>{item.quantity}</td>
-                    <td>${item.price}</td>
-                    <td>${(item.price * item.quantity).toFixed(2)}</td>
+                    <td>{formatCurrency(item.price)}</td>
+                    <td>{formatCurrency(item.price * item.quantity)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
 
-            <h3 className="total-money">Tổng cộng: ${order.total}</h3>
+            {/* ✅ CHỈ SỬA DÒNG NÀY */}
+            <h3 className="total-money">
+              Tổng cộng: {formatCurrency(order.total)}
+            </h3>
 
-            {/* 🔥 DELETE BUTTON */}
             <button
               className="delete-btn"
               onClick={() => handleDelete(order.id)}

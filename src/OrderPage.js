@@ -13,7 +13,7 @@ export default function OrderPage() {
   const { cart, customerName, address, email, paymentMethod, bank, total } =
     location.state || {};
 
-  // ✅ FORMAT TIỀN USD CHUẨN
+  // ✅ FORMAT TIỀN USD (GIỮ NGUYÊN ĐÔ)
   const formatCurrency = (value) => {
     if (value === undefined || value === null || isNaN(value)) {
       return "$0.00";
@@ -41,9 +41,9 @@ export default function OrderPage() {
       email,
       paymentMethod,
       bank,
-      total, // LƯU USD GỐC
+      total,
       cart,
-      date: new Date().toLocaleString("en-US"),
+      date: new Date().toLocaleString("vi-VN"),
     };
 
     const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
@@ -59,7 +59,7 @@ export default function OrderPage() {
     const updatedOrders = savedOrders.filter((o) => o.id !== orderId);
 
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
-    alert("Order has been deleted!");
+    alert("Đơn hàng đã được xóa!");
     navigate("/");
   };
 
@@ -69,41 +69,41 @@ export default function OrderPage() {
 
   return (
     <div className="order-page">
-      <h2 className="order-title">🎉 Your Order</h2>
+      <h2 className="order-title">🎉 Đơn Hàng Của Bạn</h2>
 
       <p className="order-id">
-        Order ID: <strong>{orderId}</strong>
+        Mã đơn hàng: <strong>{orderId}</strong>
       </p>
 
-      {/* ===== Customer Info ===== */}
+      {/* ===== Thông tin khách hàng ===== */}
       <div className="customer-info">
         <p>
-          <strong>Customer:</strong> {customerName}
+          <strong>Khách hàng:</strong> {customerName}
         </p>
         <p>
-          <strong>Address:</strong> {address}
+          <strong>Địa chỉ giao hàng:</strong> {address}
         </p>
         <p>
           <strong>Email:</strong> {email}
         </p>
         <p>
-          <strong>Payment:</strong> {paymentMethod}
+          <strong>Phương thức thanh toán:</strong> {paymentMethod}
         </p>
         {bank && (
           <p>
-            <strong>Bank:</strong> {bank}
+            <strong>Ngân hàng:</strong> {bank}
           </p>
         )}
       </div>
 
-      {/* ===== Order Table ===== */}
+      {/* ===== Bảng sản phẩm ===== */}
       <table className="order-table">
         <thead>
           <tr>
-            <th>Product</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Subtotal</th>
+            <th>Sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Đơn giá (USD)</th>
+            <th>Thành tiền (USD)</th>
           </tr>
         </thead>
 
@@ -119,14 +119,14 @@ export default function OrderPage() {
         </tbody>
       </table>
 
-      {/* ===== TOTAL ===== */}
+      {/* ===== Tổng tiền ===== */}
       <div className="order-total">
-        <h3>Total: {formatCurrency(total)}</h3>
+        <h3>Tổng cộng: {formatCurrency(total)}</h3>
       </div>
 
-      {/* ===== DELETE ===== */}
+      {/* ===== Xóa đơn ===== */}
       <button className="delete-order-btn" onClick={handleDeleteOrder}>
-        ❌ Delete Order
+        ❌ Xóa đơn hàng
       </button>
     </div>
   );
