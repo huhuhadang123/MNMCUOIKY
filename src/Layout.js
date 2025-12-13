@@ -163,7 +163,7 @@ const Layout = () => {
                   </li>
 
                   <li className="menutrai-list__item menu-has-child">
-                    <a className="menutrai-link" href="/trang1">
+                    <a className="menutrai-link" href="/ListProduct">
                       SẢN PHẨM
                     </a>
                   </li>
@@ -182,8 +182,6 @@ const Layout = () => {
                 </ul>
               </nav>
             </div>
-
-            
           </div>
         </div>
       </header>
