@@ -13,7 +13,7 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
-  // UI COLORS
+  // UI COLORS (Giữ nguyên)
   const VIBRANT_COLOR_1 = "rgba(0, 150, 255, 0.8)";
   const VIBRANT_COLOR_2 = "rgba(255, 0, 150, 0.8)";
   const GRADIENT_BG = "linear-gradient(135deg, #e0f7fa, #fce4ec)";
@@ -22,7 +22,7 @@ const LoginPage = () => {
   const LIGHT_TEXT_COLOR = "#ffffff";
   const ACCENT_COLOR = "#0077b6";
 
-  // UI STYLE
+  // UI STYLE (Giữ nguyên)
   const containerStyle = {
     minHeight: "100vh",
     display: "flex",
@@ -98,13 +98,13 @@ const LoginPage = () => {
     border: active ? `1px solid ${ACCENT_COLOR}` : "1px solid #ccc",
   });
 
-  // Load user từ localStorage
+  // Load user từ localStorage (Giữ nguyên)
   useEffect(() => {
     const saved = localStorage.getItem("user");
     if (saved) setUser(JSON.parse(saved));
   }, []);
 
-  // LOGIN
+  // LOGIN (Đã FIX phần kiểm tra mật khẩu)
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -128,7 +128,8 @@ const LoginPage = () => {
         return;
       }
 
-      // ✔ CHECK PASSWORD_HASH (ĐÃ FIX)
+      // ✔ CHECK PASSWORD (DẠNG PLAIN TEXT)
+      // Đảm bảo cột trong DB là 'password'
       if (dbUser.password !== password) {
         alert("❌ Sai mật khẩu!");
         return;
@@ -140,6 +141,9 @@ const LoginPage = () => {
         role: dbUser.role || "user",
         isAdmin: dbUser.role === "admin",
       };
+
+      // Xóa password trước khi lưu vào localStorage (Bảo mật cơ bản)
+      delete userData.password;
 
       localStorage.setItem("user", JSON.stringify(userData));
       setUser(userData);
@@ -155,12 +159,17 @@ const LoginPage = () => {
     }
   };
 
-  // REGISTER
+  // REGISTER (Đã FIX phần tên cột và logic)
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
+      if (!username.trim() || !password.trim()) {
+        alert("⚠️ Vui lòng nhập Username và Password!");
+        return;
+      }
+
       const { data: exists } = await supabase
         .from("users")
         .select("id")
@@ -172,11 +181,11 @@ const LoginPage = () => {
         return;
       }
 
-      // ✔ INSERT PASSWORD_HASH (ĐÃ FIX)
+      // ✔ INSERT USER (SỬ DỤNG CỘT 'password' - ĐỒNG BỘ VỚI DB)
       const { error } = await supabase.from("users").insert([
         {
           username: username.trim().toLowerCase(),
-          password_hash: password,
+          password: password, // ✅ SỬ DỤNG 'password'
           fullname,
           email,
           role: "user",
@@ -200,7 +209,7 @@ const LoginPage = () => {
     }
   };
 
-  // LOGOUT
+  // LOGOUT (Giữ nguyên)
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
