@@ -183,19 +183,7 @@ const Layout = () => {
               </nav>
             </div>
 
-            {/* SEARCH BOX */}
-            <div className="search-container">
-              <form className="search-form">
-                <input
-                  type="text"
-                  placeholder="Tìm kiếm sản phẩm..."
-                  className="search-input"
-                />
-                <button type="submit" className="search-button">
-                  <i className="fas fa-search"></i>
-                </button>
-              </form>
-            </div>
+            
           </div>
         </div>
       </header>
