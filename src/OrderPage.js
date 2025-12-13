@@ -7,16 +7,27 @@ export default function OrderPage() {
   const navigate = useNavigate();
   const [orderId, setOrderId] = useState(null);
 
-  // 🔥 CHẶN useEffect CHẠY 2 LẦN TRONG REACT 18
+  // 🔥 Chặn useEffect chạy 2 lần (React 18)
   const hasSaved = useRef(false);
 
   const { cart, customerName, address, email, paymentMethod, bank, total } =
     location.state || {};
 
-  useEffect(() => {
-    if (!cart) return;
+  // ✅ FORMAT TIỀN USD CHUẨN
+  const formatCurrency = (value) => {
+    if (value === undefined || value === null || isNaN(value)) {
+      return "$0.00";
+    }
 
-    // 🛑 Nếu đã lưu rồi thì không cho lưu lần 2
+    return Number(value).toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
+  };
+
+  useEffect(() => {
+    if (!cart || cart.length === 0) return;
+
     if (hasSaved.current) return;
     hasSaved.current = true;
 
@@ -30,9 +41,9 @@ export default function OrderPage() {
       email,
       paymentMethod,
       bank,
-      total,
+      total, // LƯU USD GỐC
       cart,
-      date: new Date().toLocaleString(),
+      date: new Date().toLocaleString("en-US"),
     };
 
     const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
@@ -41,54 +52,58 @@ export default function OrderPage() {
 
     localStorage.removeItem("cart");
     window.dispatchEvent(new Event("cartUpdated"));
-  }, []);
+  }, [cart]);
 
   const handleDeleteOrder = () => {
     const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
     const updatedOrders = savedOrders.filter((o) => o.id !== orderId);
 
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
-
-    alert("Đơn hàng đã được xóa!");
+    alert("Order has been deleted!");
     navigate("/");
   };
 
-  if (!cart) {
+  if (!cart || cart.length === 0) {
     return <h2>Không có đơn hàng!</h2>;
   }
 
   return (
     <div className="order-page">
-      <h2 className="order-title">🎉 Đơn Hàng Của Bạn</h2>
+      <h2 className="order-title">🎉 Your Order</h2>
+
       <p className="order-id">
-        Mã đơn: <strong>{orderId}</strong>
+        Order ID: <strong>{orderId}</strong>
       </p>
 
+      {/* ===== Customer Info ===== */}
       <div className="customer-info">
         <p>
-          <strong>Tên khách hàng:</strong> {customerName}
+          <strong>Customer:</strong> {customerName}
         </p>
         <p>
-          <strong>Địa chỉ giao hàng:</strong> {address}
+          <strong>Address:</strong> {address}
         </p>
         <p>
           <strong>Email:</strong> {email}
         </p>
         <p>
-          <strong>Thanh toán:</strong> {paymentMethod}
+          <strong>Payment:</strong> {paymentMethod}
         </p>
-        <p>
-          <strong>Ngân hàng:</strong> {bank}
-        </p>
+        {bank && (
+          <p>
+            <strong>Bank:</strong> {bank}
+          </p>
+        )}
       </div>
 
+      {/* ===== Order Table ===== */}
       <table className="order-table">
         <thead>
           <tr>
-            <th>Sản phẩm</th>
-            <th>Số lượng</th>
-            <th>Giá</th>
-            <th>Thành tiền</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Subtotal</th>
           </tr>
         </thead>
 
@@ -97,19 +112,21 @@ export default function OrderPage() {
             <tr key={index}>
               <td>{item.name}</td>
               <td>{item.quantity}</td>
-              <td>${item.price}</td>
-              <td>${(item.price * item.quantity).toFixed(2)}</td>
+              <td>{formatCurrency(item.price)}</td>
+              <td>{formatCurrency(item.price * item.quantity)}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
+      {/* ===== TOTAL ===== */}
       <div className="order-total">
-        <h3>Tổng cộng: ${total}</h3>
+        <h3>Total: {formatCurrency(total)}</h3>
       </div>
 
+      {/* ===== DELETE ===== */}
       <button className="delete-order-btn" onClick={handleDeleteOrder}>
-        ❌ Xóa đơn hàng
+        ❌ Delete Order
       </button>
     </div>
   );

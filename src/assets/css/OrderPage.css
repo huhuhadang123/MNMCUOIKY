@@ -1,107 +1,149 @@
-/* Vùng chứa chính */
+/* ====== GLOBAL ====== */
 .order-page {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  font-family: "Inter", sans-serif;
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #ffffff, #f8f9fb);
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+    sans-serif;
+  animation: fadeIn 0.6s ease;
 }
 
-/* Tiêu đề */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ====== TITLE ====== */
 .order-title {
-  text-align: center;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
-  margin-bottom: 18px;
-  color: #1a1a1a;
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 10px;
 }
 
-/* Khối thông tin khách hàng */
+.order-id {
+  text-align: center;
+  font-size: 15px;
+  color: #6b7280;
+  margin-bottom: 30px;
+}
+
+/* ====== CUSTOMER INFO ====== */
 .customer-info {
-  background: #f5f7fa;
-  padding: 16px;
-  border-radius: 12px;
-  border: 1px solid #e6e9ef;
-  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  margin-bottom: 35px;
 }
 
 .customer-info p {
-  margin: 4px 0;
+  margin: 0;
   font-size: 15px;
-  color: #333;
+  color: #374151;
 }
 
-/* Bảng sản phẩm – gọn, nhẹ */
+.customer-info strong {
+  color: #111827;
+}
+
+/* ====== TABLE ====== */
 .order-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 15px;
+  background: #ffffff;
+  border-radius: 14px;
   overflow: hidden;
-  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .order-table thead {
-  background: #2d6cdf;
-  color: white;
+  background: linear-gradient(135deg, #111827, #1f2937);
 }
 
-.order-table th,
-.order-table td {
-  padding: 12px;
-  text-align: center;
-  border-bottom: 1px solid #eee;
+.order-table thead th {
+  padding: 14px;
+  text-align: left;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ffffff;
 }
 
-.order-table tbody tr:nth-child(even) {
-  background: #fafbfc;
+.order-table tbody td {
+  padding: 16px 14px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 15px;
+  color: #374151;
+}
+
+.order-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .order-table tbody tr:hover {
-  background: #eef4ff;
-  transition: 0.2s;
+  background: #f9fafb;
 }
 
-/* Tổng tiền */
+/* ====== TOTAL ====== */
 .order-total {
-  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 25px;
+}
+
+.order-total h3 {
+  background: linear-gradient(135deg, #111827, #374151);
+  color: #ffffff;
+  padding: 14px 26px;
+  border-radius: 12px;
   font-size: 20px;
-  text-align: right;
-  font-weight: 600;
-  color: #d9304f;
+  font-weight: 700;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Responsive cho mobile */
-@media (max-width: 600px) {
-  .order-page {
-    padding: 14px;
-  }
-
-  .order-table th,
-  .order-table td {
-    padding: 10px;
-    font-size: 13px;
-  }
-
-  .order-total {
-    font-size: 18px;
-  }
-}
+/* ====== DELETE BUTTON ====== */
 .delete-order-btn {
-  margin-top: 20px;
-  background: #ff4d4f;
-  color: white;
-  border: none;
-  padding: 12px 18px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 600;
+  margin-top: 35px;
   width: 100%;
-  transition: 0.2s;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #ffffff;
+  box-shadow: 0 15px 30px rgba(239, 68, 68, 0.3);
+  transition: all 0.3s ease;
 }
 
 .delete-order-btn:hover {
-  background: #e63946;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(239, 68, 68, 0.45);
+}
+
+.delete-order-btn:active {
+  transform: scale(0.98);
+}
+
+/* ====== EMPTY STATE ====== */
+h2 {
+  text-align: center;
+  margin-top: 80px;
+  font-size: 26px;
+  color: #6b7280;
 }
